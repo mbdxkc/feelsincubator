@@ -24,9 +24,11 @@
     <script src="/js/page-transition.js" defer></script>
     <script src="/js/utils.js" defer></script>
   </head>
+
   <body>
     <div id="page-transition" aria-hidden="true"></div>
     <a class="skip-link" href="#main_container">skip to main content</a>
+
     <header class="site-header" role="banner">
       <div class="header-grid">
         <nav class="nav" aria-label="primary">
@@ -37,7 +39,14 @@
               <a href="/about.html" class="nav-link">About</a>
             </div>
           </div>
-          <div class="header-title"><a href="/" aria-label="home">feelsIncubator</a></div>
+
+          <!-- center -->
+          <div class="header-logo-wrap">
+            <a href="index.html"
+              class="header-logo"
+              aria-label="feels incubator home"></a>
+          </div>
+                    
           <div class="socials">
             <a href="#" class="nav-link" aria-label="Twitter">X</a>
             <a href="#" class="nav-link" aria-label="Instagram">IG</a>
@@ -45,10 +54,12 @@
         </nav>
       </div>
     </header>
+
     <div class="mobile-menu" aria-label="mobile navigation">
       <a href="/" class="nav-link">Work</a>
       <a href="/about.html" class="nav-link">About</a>
     </div>
+
     <main id="main_container" role="main">
       <div class="project-hero">
         <img src="https://picsum.photos/seed/synth3/1920/823" alt="Synth Wave hero" />
@@ -66,6 +77,7 @@
             <div><dt>Role</dt><dd>Artist</dd></div>
           </dl>
         </header>
+
         <div class="project-content">
           <p>Synth Wave is a personal illustration series exploring themes of retro-futurism, digital nostalgia, and the aesthetics of 80s anime.</p>
           <p>Each piece combines hand-drawn linework with digital coloring techniques, creating a hybrid style that feels both analog and synthetic. The palette draws from sunset gradients and CRT color bleeding.</p>
@@ -80,6 +92,8 @@
         </div>
       </div>
     </main>
+
     <footer class="footer" role="contentinfo"><p>&copy; 2025 feelsIncubator</p></footer>
+    
   </body>
 </html>
