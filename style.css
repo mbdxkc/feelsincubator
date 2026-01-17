@@ -607,24 +607,21 @@ a:hover{
 /* Center: site title/logo */
 .header-logo{
   display: block;
-
-  /* exact size your header expects */
-  width: 160px;        /* adjust to your logo width */
-  height: 28px;        /* match header height */
+  width: 160px;
+  height: 28px;
 
   background-image: url("/images/feelsIncubator_header.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-
-  transition: filter var(--t-fast) ease;
 }
 
-/* hover + keyboard focus */
+/* hover + keyboard */
 .header-logo:hover,
 .header-logo:focus-visible{
-  background-image: url("/images/feelsincubator_hover.svg");
+  background-image: url("/images/feelsIncubator_hover.svg");
 }
+
 
 
 .nav .header-title a{
