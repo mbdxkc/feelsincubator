@@ -1,63 +1,173 @@
 /* =========================================================
-   base stylesheet
-   design. code. clarity.
+   feelsIncubator - Portfolio Case Study
+   =========================================================
+   Author:   Valdez Campos (dez@mediabrilliance.io)
+   Studio:   mediaBrilliance designxtudio
+   Date:     2026-01-17
+   Version:  1.0
+
+   Table of Contents:
+   ------------------
+   1)  Design Tokens ........... CSS custom properties for theming
+   2)  Reset & Guards .......... Box-sizing, body defaults
+   3)  Accessibility ........... Screen reader utilities, skip links
+   4)  Page Transitions ........ Glitch/RGB split effect
+   5)  Typography .............. Headings, paragraphs, links
+   6)  Layout Primitives ....... Header, navigation, containers
+   7)  Images .................. Responsive image defaults
+   8)  Buttons ................. Base button component
+   9)  Footer .................. Site footer styles
+   10) Grid System ............. CSS Grid and Flexbox utilities
+   11) Sections ................ Section spacing variants
+   12) Cards ................... Card component
+   13) Forms ................... Form inputs, validation states
+   14) Button Variants ......... Primary, secondary, ghost buttons
+   15) Badges .................. Tag/badge component
+   16) Dividers ................ Horizontal rule styles
+   17) Spacing Utilities ....... Margin and padding helpers
+   18) Text Utilities .......... Typography helper classes
+   19) Display Utilities ....... Visibility, positioning, sizing
+   20) Lists ................... List reset and styles
+   21) Overlays ................ Modal backdrop
+   22) Modals .................. Modal dialog component
+   23) Responsive .............. Media query breakpoints
+   24) Print ................... Print-specific styles
+   25) Hero Section ............ Homepage hero component
+   26) Portfolio Slider ........ Horizontal project carousel
+   27) Project Cards ........... Portfolio item cards
+   28) Glow Utilities .......... Neon glow effects
+   29) Scanlines ............... Optional CRT effect overlay
+   30) Project Page ............ Individual project layout
+   31) Portfolio Responsive .... Mobile adjustments for portfolio
    ========================================================= */
 
 
 /* =========================================================
-   1) design tokens
-   - single source of truth
+   1) DESIGN TOKENS
+   ---------------------------------------------------------
+   CSS custom properties serve as the single source of truth
+   for all visual decisions. Change values here to update
+   the entire site's appearance.
+
+   Cyberpunk color palette inspired by neon signage,
+   late-night cityscapes, and underground anime aesthetics.
    ========================================================= */
 :root{
-  /* colors */
-  --bg:    rgba(0,0,0,.9);
-  --text:  rgba(255,255,255,.87);
-  --muted: rgba(255,255,255,.7);
+  /*
+   * Base colors
+   * --bg: Primary dark background, near-black with slight blue tint
+   * --bg-alt: Slightly lighter alternative for cards/sections
+   * --text: Primary text color, high-contrast white
+   * --muted: Secondary text for labels, captions, metadata
+   */
+  --bg:      #0a0a0f;
+  --bg-alt:  #12121a;
+  --text:    rgba(255,255,255,.9);
+  --muted:   rgba(255,255,255,.5);
 
-  /* accents */
-  --accent-primary:   #008DDA;
-  --accent-secondary: #FF2DF1;
-  --accent-highlight: #FFFF00;
+  /*
+   * Cyberpunk accent colors
+   * Electric, saturated colors that "glow" against dark backgrounds
+   * Inspired by neon signs, LED displays, and anime color grading
+   */
+  --neon-cyan:    #00f0ff;  /* Primary accent - electric blue */
+  --neon-magenta: #ff00aa;  /* Secondary accent - hot pink */
+  --neon-pink:    #ff2d95;  /* Tertiary accent - softer pink */
+  --neon-purple:  #b400ff;  /* Reserved - violet */
+  --neon-yellow:  #f0ff00;  /* Reserved - electric yellow */
 
-  /* layout */
+  /*
+   * Semantic color mappings
+   * Map raw colors to semantic roles for easier theming
+   */
+  --accent-primary:   var(--neon-cyan);
+  --accent-secondary: var(--neon-magenta);
+  --accent-highlight: var(--neon-pink);
+
+  /*
+   * Glow effects (box-shadow values)
+   * Two-layer glow: bright inner + soft outer spread
+   * Used for hover states to create neon sign effect
+   */
+  --glow-cyan:    0 0 20px rgba(0,240,255,.5), 0 0 40px rgba(0,240,255,.2);
+  --glow-magenta: 0 0 20px rgba(255,0,170,.5), 0 0 40px rgba(255,0,170,.2);
+  --glow-pink:    0 0 20px rgba(255,45,149,.5), 0 0 40px rgba(255,45,149,.2);
+
+  /*
+   * Layout dimensions
+   * --container: Max content width for readability
+   * --header-h: Fixed header height for sticky positioning
+   */
   --container: 1200px;
   --header-h:  48px;
 
-  /* shape */
-  --radius-sm: 12px;
-  --radius-lg: 20px;
+  /*
+   * Border radius scale
+   * Smaller values for sharper, more technical aesthetic
+   */
+  --radius-sm: 4px;
+  --radius-lg: 8px;
 
-  /* shadow */
-  --shadow-soft: 0 8px 20px rgba(0,0,0,.35);
+  /*
+   * Shadows
+   * Soft shadow for depth without breaking dark theme
+   */
+  --shadow-soft: 0 8px 20px rgba(0,0,0,.5);
 
-  /* motion */
-  --t-fast: .12s;
-  --t-base: .3s;
-  --t-slow: .6s;
+  /*
+   * Motion/timing tokens
+   * Consistent animation durations across the site
+   * --ease: Custom cubic-bezier for smooth, natural motion
+   */
+  --t-fast: .12s;  /* Micro-interactions (hover states) */
+  --t-base: .3s;   /* Standard transitions */
+  --t-slow: .6s;   /* Page transitions, large movements */
   --ease: cubic-bezier(.25,.8,.25,1);
 }
 
 
 /* =========================================================
-   2) reset + global guards
+   2) RESET & GLOBAL GUARDS
+   ---------------------------------------------------------
+   Normalize browser defaults and establish foundational
+   layout rules. Uses modern CSS reset approach.
    ========================================================= */
+
+/*
+ * Universal box-sizing
+ * Include padding/border in element dimensions
+ * Prevents layout surprises from padding
+ */
 *,*::before,*::after{
   box-sizing: border-box;
 }
 
+/*
+ * Full-height html/body
+ * Required for sticky footer and full-viewport layouts
+ */
 html,body{
   height: 100%;
 }
 
+/*
+ * Prevent horizontal overflow
+ * scrollbar-gutter prevents layout shift when scrollbar appears
+ */
 html{
   overflow-x: hidden;
   scrollbar-gutter: stable both-edges;
 }
 
+/*
+ * Body defaults
+ * Flexbox column layout enables sticky footer pattern
+ * min-height with dvh unit handles mobile viewport correctly
+ */
 body{
   margin: 0;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100dvh;  /* Dynamic viewport height for mobile */
 
   display: flex;
   flex-direction: column;
@@ -65,13 +175,23 @@ body{
   background: var(--bg);
   color: var(--text);
 
+  /* System font stack as fallback; Space Grotesk loaded in HTML */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 
 /* =========================================================
-   3) accessibility utilities
+   3) ACCESSIBILITY UTILITIES
+   ---------------------------------------------------------
+   Tools for improving screen reader experience and
+   keyboard navigation without affecting visual design.
    ========================================================= */
+
+/*
+ * Screen reader only
+ * Visually hides content while keeping it accessible
+ * to assistive technologies
+ */
 .sr-only{
   position: absolute;
   width: 1px;
@@ -84,6 +204,11 @@ body{
   border: 0;
 }
 
+/*
+ * Skip link
+ * Allows keyboard users to bypass navigation
+ * Hidden by default, appears on focus
+ */
 .skip-link{
   position: absolute;
   top: -40px;
@@ -103,61 +228,301 @@ body{
 
 
 /* =========================================================
-   4) page transition (optional)
+   4) PAGE TRANSITION - GLITCH/RGB SPLIT
+   ---------------------------------------------------------
+   Cyberpunk-themed page transition effect featuring:
+   - Horizontal clip-path "tearing" animation
+   - RGB chromatic aberration (cyan/magenta channel split)
+   - Random scan line interference
+   - Content blur/skew distortion
+
+   Respects prefers-reduced-motion for accessibility.
    ========================================================= */
+
+/*
+ * Transition overlay container
+ * Fixed fullscreen element that covers content during transitions
+ */
 #page-transition{
   position: fixed;
   inset: 0;
   z-index: 9999;
-
-  background: var(--bg);
   pointer-events: none;
-
-  transform: translateX(0);
-  transition: transform var(--t-slow) var(--ease);
+  opacity: 0;
+  background: var(--bg);
 }
 
-#page-transition.exit{
-  transform: translateX(-100%);
-}
-
-main{
-  flex: 1 0 auto;
+/*
+ * Active state - transitioning IN to page
+ * Triggers the glitch entrance animation
+ */
+#page-transition.glitch-active{
   opacity: 1;
-  transition: opacity var(--t-base) ease;
+  pointer-events: auto;
+  animation: glitchIn .5s ease-out forwards;
 }
 
-body.is-loading main,
-body.is-leaving main{
+/*
+ * Exit state - transitioning OUT of page
+ * Reverses the glitch effect
+ */
+#page-transition.glitch-exit{
+  opacity: 1;
+  animation: glitchOut .4s ease-in forwards;
+}
+
+/*
+ * RGB split layers (pseudo-elements)
+ * ::before = cyan channel shift
+ * ::after = magenta channel shift
+ * mix-blend-mode: screen creates additive color blending
+ */
+#page-transition::before,
+#page-transition::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
   opacity: 0;
 }
 
+#page-transition.glitch-active::before{
+  animation: rgbShiftCyan .5s ease-out;
+  background: var(--neon-cyan);
+  mix-blend-mode: screen;
+}
+
+#page-transition.glitch-active::after{
+  animation: rgbShiftMagenta .5s ease-out;
+  background: var(--neon-magenta);
+  mix-blend-mode: screen;
+}
+
+/*
+ * Glitch lines container
+ * Holds randomly positioned horizontal interference lines
+ * Lines are generated dynamically via JavaScript
+ */
+.glitch-lines{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+#page-transition.glitch-active .glitch-lines{
+  animation: glitchLinesAnim .5s ease-out;
+}
+
+.glitch-lines span{
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255,255,255,.1);
+}
+
+/*
+ * Glitch entrance animation
+ * Uses clip-path to create horizontal "tearing" effect
+ * Reveals content in random slices
+ */
+@keyframes glitchIn{
+  0%{
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  10%{
+    opacity: 1;
+    clip-path: inset(40% 0 40% 0);
+  }
+  20%{
+    clip-path: inset(20% 0 60% 0);
+  }
+  30%{
+    clip-path: inset(60% 0 10% 0);
+  }
+  40%{
+    clip-path: inset(10% 0 70% 0);
+  }
+  50%{
+    clip-path: inset(0 0 0 0);
+  }
+  100%{
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/*
+ * Glitch exit animation
+ * Reverses the tearing effect when leaving
+ */
+@keyframes glitchOut{
+  0%{
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+  30%{
+    clip-path: inset(30% 0 50% 0);
+  }
+  50%{
+    clip-path: inset(70% 0 20% 0);
+  }
+  70%{
+    clip-path: inset(10% 0 80% 0);
+  }
+  100%{
+    opacity: 0;
+    clip-path: inset(50% 0 50% 0);
+  }
+}
+
+/*
+ * RGB channel shift animations
+ * Cyan shifts left, magenta shifts right
+ * Creates chromatic aberration effect
+ */
+@keyframes rgbShiftCyan{
+  0%, 100%{ opacity: 0; transform: translateX(0); }
+  15%{ opacity: .7; transform: translateX(-8px); }
+  30%{ opacity: .5; transform: translateX(4px); }
+  45%{ opacity: .3; transform: translateX(-3px); }
+  60%{ opacity: 0; transform: translateX(0); }
+}
+
+@keyframes rgbShiftMagenta{
+  0%, 100%{ opacity: 0; transform: translateX(0); }
+  15%{ opacity: .7; transform: translateX(8px); }
+  30%{ opacity: .5; transform: translateX(-4px); }
+  45%{ opacity: .3; transform: translateX(3px); }
+  60%{ opacity: 0; transform: translateX(0); }
+}
+
+/* Scan lines fade in/out */
+@keyframes glitchLinesAnim{
+  0%, 100%{ opacity: 0; }
+  10%, 50%{ opacity: 1; }
+}
+
+/*
+ * Main content glitch effects
+ * Applied to <main> element during page transitions
+ */
+main{
+  flex: 1 0 auto;
+}
+
+/* Entrance: content glitches in with blur and position jitter */
+body.is-glitching main{
+  animation: contentGlitch .4s ease-out;
+}
+
+/* Exit: content distorts out with increasing blur and skew */
+body.is-leaving main{
+  animation: contentGlitchOut .3s ease-in forwards;
+}
+
+@keyframes contentGlitch{
+  0%{
+    opacity: 0;
+    filter: blur(4px) saturate(2);
+    transform: translateX(-5px);
+  }
+  20%{
+    opacity: .8;
+    filter: blur(2px) saturate(1.5);
+    transform: translateX(3px);
+  }
+  40%{
+    opacity: .9;
+    filter: blur(1px) saturate(1.2);
+    transform: translateX(-2px);
+  }
+  60%{
+    filter: blur(0) saturate(1);
+    transform: translateX(1px);
+  }
+  100%{
+    opacity: 1;
+    filter: blur(0) saturate(1);
+    transform: translateX(0);
+  }
+}
+
+@keyframes contentGlitchOut{
+  0%{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0) skewX(0);
+  }
+  40%{
+    opacity: .7;
+    filter: blur(2px) saturate(1.5);
+    transform: translateX(3px) skewX(-1deg);
+  }
+  70%{
+    opacity: .4;
+    filter: blur(4px) saturate(2);
+    transform: translateX(-5px) skewX(2deg);
+  }
+  100%{
+    opacity: 0;
+    filter: blur(8px) saturate(3);
+    transform: translateX(10px) skewX(-3deg);
+  }
+}
+
+/*
+ * Reduced motion preference
+ * Disables all animations for users who prefer reduced motion
+ * Falls back to simple opacity fade
+ */
 @media (prefers-reduced-motion: reduce){
   #page-transition,
+  #page-transition::before,
+  #page-transition::after,
+  #page-transition .glitch-lines,
   main{
-    transition: none;
+    animation: none !important;
+    transition: opacity .2s ease !important;
+  }
+
+  body.is-leaving main{
+    opacity: 0;
   }
 }
 
 
 /* =========================================================
-   5) typography
+   5) TYPOGRAPHY
+   ---------------------------------------------------------
+   Base type styles for headings, paragraphs, and links.
+   Establishes vertical rhythm and text hierarchy.
    ========================================================= */
+
+/* Headings: consistent margin and line-height */
 h1,h2,h3,h4,h5,h6{
   margin: 0 0 .5em;
   font-weight: 700;
   line-height: 1.2;
 }
 
+/* Paragraphs: standard bottom margin for spacing */
 p{
   margin: 0 0 1em;
 }
 
+/* Small text: muted color for supporting content */
 small{
   color: var(--muted);
   font-size: .875rem;
 }
 
+/*
+ * Links: neon pink default, magenta on hover
+ * Smooth color transition for polished feel
+ */
 a{
   color: var(--accent-highlight);
   text-decoration: none;
@@ -170,14 +535,26 @@ a:hover{
 
 
 /* =========================================================
-   6) layout primitives
+   6) LAYOUT PRIMITIVES
+   ---------------------------------------------------------
+   Core layout components: containers, header, navigation.
+   Uses CSS Grid for flexible three-column nav layout.
    ========================================================= */
+
+/*
+ * Container: max-width wrapper with horizontal padding
+ * Centers content and provides consistent margins
+ */
 .container{
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/*
+ * Site header: sticky, blurred background
+ * backdrop-filter creates frosted glass effect
+ */
 .site-header{
   position: sticky;
   top: 0;
@@ -191,6 +568,7 @@ a:hover{
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
+/* Header content wrapper */
 .header-grid{
   max-width: var(--container);
   margin: 0 auto;
@@ -198,6 +576,11 @@ a:hover{
   height: 100%;
 }
 
+/*
+ * Navigation grid: three-column layout
+ * Left (nav links) | Center (logo) | Right (socials)
+ * minmax(0,1fr) prevents content from overflowing
+ */
 .nav{
   display: grid;
   grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
@@ -205,6 +588,7 @@ a:hover{
   height: 100%;
 }
 
+/* Left section holds menu toggle (mobile) and nav links (desktop) */
 .nav-left-section{
   display: flex;
   align-items: center;
@@ -212,6 +596,7 @@ a:hover{
   justify-self: start;
 }
 
+/* Nav link groups */
 .nav .pages,
 .nav .socials{
   display: flex;
@@ -219,9 +604,28 @@ a:hover{
   gap: 1rem;
 }
 
-.nav .header-title{
-  justify-self: center;
+/* Center: site title/logo */
+.header-logo{
+  display: block;
+
+  /* exact size your header expects */
+  width: 160px;        /* adjust to your logo width */
+  height: 28px;        /* match header height */
+
+  background-image: url("/images/feelsIncubator_header.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  transition: filter var(--t-fast) ease;
 }
+
+/* hover + keyboard focus */
+.header-logo:hover,
+.header-logo:focus-visible{
+  background-image: url("/images/feelsincubator_hover.svg");
+}
+
 
 .nav .header-title a{
   font-weight: 700;
@@ -235,10 +639,16 @@ a:hover{
   color: var(--accent-highlight);
 }
 
+/* Right: social links */
 .nav .socials{
   justify-self: end;
 }
 
+/*
+ * Navigation links
+ * Muted by default, brightens on hover
+ * Active state uses accent color
+ */
 .nav-link{
   font-size: .875rem;
   font-weight: 500;
@@ -254,7 +664,11 @@ a:hover{
   color: var(--accent-highlight);
 }
 
-/* mobile nav toggle */
+/*
+ * Mobile menu toggle (hamburger)
+ * Hidden on desktop, shown on mobile via media query
+ * Three-line hamburger icon using spans
+ */
 .nav-toggle{
   display: none;
   appearance: none;
@@ -275,7 +689,11 @@ a:hover{
     opacity var(--t-fast) ease;
 }
 
-/* mobile menu panel */
+/*
+ * Mobile menu panel
+ * Full-screen overlay that slides down from header
+ * Hidden by default, shown via .is-active class
+ */
 .mobile-menu{
   display: none;
   position: fixed;
@@ -309,6 +727,7 @@ a:hover{
   border-bottom: 1px solid rgba(255,255,255,.1);
 }
 
+/* Legacy nav alignment classes (for flexibility) */
 .nav-left,
 .nav-center,
 .nav-right{
@@ -330,7 +749,10 @@ a:hover{
 
 
 /* =========================================================
-   7) images
+   7) IMAGES
+   ---------------------------------------------------------
+   Responsive image defaults to prevent overflow
+   and maintain aspect ratios.
    ========================================================= */
 img{
   display: block;
@@ -340,7 +762,10 @@ img{
 
 
 /* =========================================================
-   8) buttons
+   8) BUTTONS
+   ---------------------------------------------------------
+   Base button component with hover, active, focus, and
+   disabled states. Pill-shaped with subtle shadow.
    ========================================================= */
 .button{
   appearance: none;
@@ -351,7 +776,7 @@ img{
   justify-content: center;
 
   padding: .75rem 1.25rem;
-  border-radius: 999px;
+  border-radius: 999px;  /* Pill shape */
 
   font: inherit;
   font-weight: 600;
@@ -369,15 +794,18 @@ img{
     border-color var(--t-base) ease;
 }
 
+/* Hover: slight lift and brighter border */
 .button:hover{
   transform: translateY(-1px);
   border-color: rgba(255,255,255,.6);
 }
 
+/* Active: pressed down effect */
 .button:active{
   transform: translateY(1px);
 }
 
+/* Focus: visible outline for keyboard navigation */
 .button:focus-visible{
   outline: none;
   box-shadow:
@@ -385,6 +813,7 @@ img{
     var(--shadow-soft);
 }
 
+/* Disabled: reduced opacity, no interactions */
 .button:disabled{
   opacity: .6;
   cursor: not-allowed;
@@ -393,7 +822,10 @@ img{
 
 
 /* =========================================================
-   9) footer
+   9) FOOTER
+   ---------------------------------------------------------
+   Site footer with copyright and links.
+   Uses margin-top: auto to push to bottom (flexbox sticky).
    ========================================================= */
 .footer{
   margin-top: auto;
@@ -411,17 +843,24 @@ img{
 
 
 /* =========================================================
-   10) grid system
+   10) GRID SYSTEM
+   ---------------------------------------------------------
+   CSS Grid and Flexbox utility classes for layout.
+   Responsive columns collapse on smaller screens.
    ========================================================= */
+
+/* Base grid with gap */
 .grid{
   display: grid;
   gap: 1rem;
 }
 
+/* Fixed column counts */
 .grid-2{ grid-template-columns: repeat(2, 1fr); }
 .grid-3{ grid-template-columns: repeat(3, 1fr); }
 .grid-4{ grid-template-columns: repeat(4, 1fr); }
 
+/* Auto-fit/fill for responsive grids */
 .grid-auto-fit{
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
@@ -430,7 +869,7 @@ img{
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* flex utilities */
+/* Flexbox utilities */
 .flex{ display: flex; }
 .flex-col{ flex-direction: column; }
 .flex-wrap{ flex-wrap: wrap; }
@@ -440,6 +879,7 @@ img{
   justify-content: center;
 }
 
+/* Alignment */
 .items-start{ align-items: flex-start; }
 .items-center{ align-items: center; }
 .items-end{ align-items: flex-end; }
@@ -449,6 +889,7 @@ img{
 .justify-end{ justify-content: flex-end; }
 .justify-between{ justify-content: space-between; }
 
+/* Gap scale */
 .gap-0{ gap: 0; }
 .gap-xs{ gap: .25rem; }
 .gap-sm{ gap: .5rem; }
@@ -458,7 +899,9 @@ img{
 
 
 /* =========================================================
-   11) section + container variants
+   11) SECTION & CONTAINER VARIANTS
+   ---------------------------------------------------------
+   Spacing presets for page sections and container widths.
    ========================================================= */
 .section{
   padding: 4rem 0;
@@ -472,18 +915,21 @@ img{
   padding: 6rem 0;
 }
 
+/* Narrow container for readable text */
 .container-sm{
   max-width: 720px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* Wide container for larger layouts */
 .container-lg{
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* Full-width with padding */
 .container-full{
   width: 100%;
   padding: 0 1rem;
@@ -491,7 +937,10 @@ img{
 
 
 /* =========================================================
-   12) card component
+   12) CARD COMPONENT
+   ---------------------------------------------------------
+   Flexible card for content grouping.
+   Semi-transparent background with subtle border.
    ========================================================= */
 .card{
   background: rgba(255,255,255,.05);
@@ -503,15 +952,18 @@ img{
     transform var(--t-fast) ease;
 }
 
+/* Hover: brighter border */
 .card:hover{
   border-color: rgba(255,255,255,.2);
 }
 
+/* Interactive variant: lifts and glows on hover */
 .card-interactive:hover{
   transform: translateY(-2px);
   border-color: var(--accent-primary);
 }
 
+/* Card sections */
 .card-header{
   margin-bottom: 1rem;
   padding-bottom: 1rem;
@@ -530,7 +982,10 @@ img{
 
 
 /* =========================================================
-   13) form elements
+   13) FORM ELEMENTS
+   ---------------------------------------------------------
+   Styled form inputs, textareas, selects, and validation.
+   Dark theme with neon focus states.
    ========================================================= */
 .form-group{
   margin-bottom: 1.25rem;
@@ -544,6 +999,7 @@ img{
   color: var(--text);
 }
 
+/* Shared input styles */
 .form-input,
 .form-textarea,
 .form-select{
@@ -568,6 +1024,7 @@ img{
   color: var(--muted);
 }
 
+/* Focus: cyan border with glow */
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus{
@@ -581,6 +1038,7 @@ img{
   resize: vertical;
 }
 
+/* Custom select dropdown arrow */
 .form-select{
   appearance: none;
   cursor: pointer;
@@ -590,7 +1048,7 @@ img{
   padding-right: 2.5rem;
 }
 
-/* checkbox + radio */
+/* Checkbox and radio inputs */
 .form-check{
   display: flex;
   align-items: center;
@@ -627,7 +1085,7 @@ img{
   box-shadow: 0 0 0 3px rgba(0,141,218,.25);
 }
 
-/* validation states */
+/* Validation states */
 .form-input.is-valid,
 .form-textarea.is-valid{
   border-color: #22c55e;
@@ -652,8 +1110,12 @@ img{
 
 
 /* =========================================================
-   14) button variants
+   14) BUTTON VARIANTS
+   ---------------------------------------------------------
+   Color and size variations for the base button.
    ========================================================= */
+
+/* Primary: solid cyan background */
 .button-primary{
   background: var(--accent-primary);
   border-color: var(--accent-primary);
@@ -664,6 +1126,7 @@ img{
   border-color: #007acc;
 }
 
+/* Secondary: transparent with border */
 .button-secondary{
   background: transparent;
   border-color: rgba(255,255,255,.3);
@@ -674,6 +1137,7 @@ img{
   border-color: rgba(255,255,255,.5);
 }
 
+/* Ghost: fully transparent, no border */
 .button-ghost{
   background: transparent;
   border-color: transparent;
@@ -685,6 +1149,7 @@ img{
   border-color: transparent;
 }
 
+/* Size variants */
 .button-sm{
   padding: .5rem 1rem;
   font-size: .875rem;
@@ -695,6 +1160,7 @@ img{
   font-size: 1.125rem;
 }
 
+/* Full-width button */
 .button-block{
   display: flex;
   width: 100%;
@@ -702,7 +1168,9 @@ img{
 
 
 /* =========================================================
-   15) badge / tag
+   15) BADGE / TAG
+   ---------------------------------------------------------
+   Small label component for categories, status, counts.
    ========================================================= */
 .badge{
   display: inline-flex;
@@ -726,7 +1194,9 @@ img{
 
 
 /* =========================================================
-   16) divider
+   16) DIVIDER
+   ---------------------------------------------------------
+   Horizontal rule for visual separation.
    ========================================================= */
 .divider{
   height: 1px;
@@ -741,9 +1211,13 @@ img{
 
 
 /* =========================================================
-   17) spacing utilities
+   17) SPACING UTILITIES
+   ---------------------------------------------------------
+   Margin and padding helper classes.
+   Scale: xs(.25rem), sm(.5rem), md(1rem), lg(2rem), xl(4rem)
    ========================================================= */
-/* margin */
+
+/* Margin */
 .m-0{ margin: 0; }
 .m-auto{ margin: auto; }
 .mx-auto{ margin-left: auto; margin-right: auto; }
@@ -766,7 +1240,7 @@ img{
 .ml-auto{ margin-left: auto; }
 .mr-auto{ margin-right: auto; }
 
-/* padding */
+/* Padding */
 .p-0{ padding: 0; }
 .p-xs{ padding: .25rem; }
 .p-sm{ padding: .5rem; }
@@ -788,12 +1262,18 @@ img{
 
 
 /* =========================================================
-   18) text utilities
+   18) TEXT UTILITIES
+   ---------------------------------------------------------
+   Typography helper classes for alignment, size, weight,
+   color, and text transforms.
    ========================================================= */
+
+/* Alignment */
 .text-left{ text-align: left; }
 .text-center{ text-align: center; }
 .text-right{ text-align: right; }
 
+/* Size scale (rem-based for accessibility) */
 .text-xs{ font-size: .75rem; }
 .text-sm{ font-size: .875rem; }
 .text-base{ font-size: 1rem; }
@@ -804,41 +1284,51 @@ img{
 .text-4xl{ font-size: 2.5rem; }
 .text-5xl{ font-size: 3rem; }
 
+/* Weight */
 .font-light{ font-weight: 300; }
 .font-normal{ font-weight: 400; }
 .font-medium{ font-weight: 500; }
 .font-semibold{ font-weight: 600; }
 .font-bold{ font-weight: 700; }
 
+/* Color */
 .text-muted{ color: var(--muted); }
 .text-primary{ color: var(--accent-primary); }
 .text-secondary{ color: var(--accent-secondary); }
 .text-highlight{ color: var(--accent-highlight); }
 
+/* Line height */
 .leading-none{ line-height: 1; }
 .leading-tight{ line-height: 1.25; }
 .leading-normal{ line-height: 1.5; }
 .leading-relaxed{ line-height: 1.75; }
 
+/* Truncate with ellipsis */
 .truncate{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* Text transform */
 .uppercase{ text-transform: uppercase; }
 .lowercase{ text-transform: lowercase; }
 .capitalize{ text-transform: capitalize; }
 
 
 /* =========================================================
-   19) display utilities
+   19) DISPLAY UTILITIES
+   ---------------------------------------------------------
+   Visibility, positioning, sizing, and misc utilities.
    ========================================================= */
+
+/* Display */
 .hidden{ display: none; }
 .block{ display: block; }
 .inline{ display: inline; }
 .inline-block{ display: inline-block; }
 
+/* Position */
 .relative{ position: relative; }
 .absolute{ position: absolute; }
 .fixed{ position: fixed; }
@@ -848,35 +1338,44 @@ img{
   top: 0; right: 0; bottom: 0; left: 0;
 }
 
+/* Sizing */
 .w-full{ width: 100%; }
 .h-full{ height: 100%; }
 .min-h-screen{ min-height: 100vh; }
 
+/* Overflow */
 .overflow-hidden{ overflow: hidden; }
 .overflow-auto{ overflow: auto; }
 
+/* Border radius */
 .rounded{ border-radius: var(--radius-sm); }
 .rounded-lg{ border-radius: var(--radius-lg); }
 .rounded-full{ border-radius: 9999px; }
 .rounded-none{ border-radius: 0; }
 
+/* Shadow */
 .shadow{ box-shadow: var(--shadow-soft); }
 .shadow-none{ box-shadow: none; }
 
+/* Opacity */
 .opacity-0{ opacity: 0; }
 .opacity-50{ opacity: .5; }
 .opacity-75{ opacity: .75; }
 .opacity-100{ opacity: 1; }
 
+/* Pointer events */
 .pointer-events-none{ pointer-events: none; }
 .pointer-events-auto{ pointer-events: auto; }
 
+/* Cursor */
 .cursor-pointer{ cursor: pointer; }
 .cursor-not-allowed{ cursor: not-allowed; }
 
 
 /* =========================================================
-   20) list reset + styles
+   20) LIST RESET & STYLES
+   ---------------------------------------------------------
+   Remove default list styling and provide alternatives.
    ========================================================= */
 .list-none{
   list-style: none;
@@ -896,7 +1395,9 @@ img{
 
 
 /* =========================================================
-   21) overlay / backdrop
+   21) OVERLAY / BACKDROP
+   ---------------------------------------------------------
+   Semi-transparent backdrop for modals and drawers.
    ========================================================= */
 .overlay{
   position: fixed;
@@ -917,7 +1418,9 @@ img{
 
 
 /* =========================================================
-   22) modal structure
+   22) MODAL STRUCTURE
+   ---------------------------------------------------------
+   Centered dialog component with header, body, footer.
    ========================================================= */
 .modal{
   position: fixed;
@@ -967,14 +1470,20 @@ img{
 
 
 /* =========================================================
-   23) responsive breakpoints
+   23) RESPONSIVE BREAKPOINTS
+   ---------------------------------------------------------
+   Media queries for tablet and mobile layouts.
+   Breakpoints: 1200px, 992px, 768px, 576px
    ========================================================= */
+
+/* Large tablets and below */
 @media (max-width: 1200px){
   .container{
     max-width: 960px;
   }
 }
 
+/* Tablets */
 @media (max-width: 992px){
   .grid-4{
     grid-template-columns: repeat(2, 1fr);
@@ -983,11 +1492,13 @@ img{
   .hide-lg{ display: none; }
 }
 
+/* Small tablets and large phones */
 @media (max-width: 768px){
   .container{
     max-width: 100%;
   }
 
+  /* Stack all grids to single column */
   .grid-2,
   .grid-3,
   .grid-4{
@@ -1002,7 +1513,7 @@ img{
     padding: 4rem 0;
   }
 
-  /* mobile nav */
+  /* Switch to mobile navigation */
   .nav .pages{
     display: none;
   }
@@ -1022,6 +1533,7 @@ img{
   .flex-col-md{ flex-direction: column; }
 }
 
+/* Small phones */
 @media (max-width: 576px){
   .hide-sm{ display: none; }
   .show-sm{ display: block; }
@@ -1035,7 +1547,10 @@ img{
 
 
 /* =========================================================
-   24) print styles
+   24) PRINT STYLES
+   ---------------------------------------------------------
+   Optimizations for printing: removes backgrounds,
+   hides navigation, ensures readability.
    ========================================================= */
 @media print{
   *{
@@ -1063,5 +1578,441 @@ img{
 
 
 /* =========================================================
-   end of base.css
+   25) HERO SECTION
+   ---------------------------------------------------------
+   Full-viewport intro section with gradient title
+   and ambient color glow background.
+   ========================================================= */
+.hero{
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/*
+ * Ambient glow background
+ * Radial gradients create soft cyan/magenta light pools
+ */
+.hero::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,240,255,.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(255,0,170,.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/*
+ * Hero title with gradient text
+ * Uses background-clip for cyan-to-magenta gradient fill
+ * clamp() provides fluid responsive sizing
+ */
+.hero-title{
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: .5rem;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  position: relative;
+}
+
+.hero-subtitle{
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.hero-tagline{
+  max-width: 500px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   26) PORTFOLIO SLIDER
+   ---------------------------------------------------------
+   Horizontal scrolling carousel for project cards.
+   Supports mouse drag, touch swipe, and button navigation.
+   ========================================================= */
+.portfolio-section{
+  padding: 4rem 0 6rem;
+}
+
+/* Section header with title and nav buttons */
+.section-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-title{
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Navigation buttons */
+.slider-nav{
+  display: flex;
+  gap: .5rem;
+}
+
+.slider-btn{
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color var(--t-base) ease,
+    box-shadow var(--t-base) ease;
+}
+
+/* Hover: neon glow effect */
+.slider-btn:hover{
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.slider-btn svg{
+  width: 20px;
+  height: 20px;
+}
+
+/* Slider container clips overflow */
+.slider-container{
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+/*
+ * Slider track holds cards in a row
+ * Transform is manipulated by JavaScript for scrolling
+ * Cursor changes to indicate draggability
+ */
+.slider-track{
+  display: flex;
+  gap: 1.5rem;
+  transition: transform var(--t-slow) var(--ease);
+  cursor: grab;
+}
+
+.slider-track:active{
+  cursor: grabbing;
+}
+
+/* Disable transition during drag for immediate feedback */
+.slider-track.is-dragging{
+  transition: none;
+}
+
+
+/* =========================================================
+   27) PROJECT CARDS
+   ---------------------------------------------------------
+   Portfolio item cards with image, title, and category.
+   Hover state features lift and neon glow.
+   ========================================================= */
+.project-card{
+  flex: 0 0 auto;
+  width: 350px;
+  background: var(--bg-alt);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition:
+    transform var(--t-base) ease,
+    border-color var(--t-base) ease,
+    box-shadow var(--t-base) ease;
+}
+
+/* Hover: lift, cyan border, neon glow */
+.project-card:hover{
+  transform: translateY(-4px);
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Image container with aspect ratio */
+.project-card-image{
+  aspect-ratio: 16/10;
+  background: rgba(255,255,255,.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.project-card-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-slow) ease;
+}
+
+/* Image zooms slightly on hover */
+.project-card:hover .project-card-image img{
+  transform: scale(1.05);
+}
+
+/* Gradient overlay fading to card background */
+.project-card-image::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-alt) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.project-card-content{
+  padding: 1.25rem;
+}
+
+.project-card-title{
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+  color: var(--text);
+}
+
+.project-card-category{
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+/* Make entire card clickable via stretched link */
+.project-card a{
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card a::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+
+/* =========================================================
+   28) GLOW UTILITIES
+   ---------------------------------------------------------
+   Utility classes for applying neon glow effects.
+   ========================================================= */
+
+/* Box shadow glow */
+.glow-cyan{ box-shadow: var(--glow-cyan); }
+.glow-magenta{ box-shadow: var(--glow-magenta); }
+.glow-pink{ box-shadow: var(--glow-pink); }
+
+/* Text shadow glow */
+.text-glow-cyan{
+  text-shadow: 0 0 10px rgba(0,240,255,.5), 0 0 20px rgba(0,240,255,.3);
+}
+
+.text-glow-magenta{
+  text-shadow: 0 0 10px rgba(255,0,170,.5), 0 0 20px rgba(255,0,170,.3);
+}
+
+/* Border with inner and outer glow */
+.neon-border{
+  border: 1px solid var(--neon-cyan);
+  box-shadow:
+    inset 0 0 10px rgba(0,240,255,.1),
+    var(--glow-cyan);
+}
+
+
+/* =========================================================
+   29) SCANLINE OVERLAY (OPTIONAL)
+   ---------------------------------------------------------
+   CRT monitor effect with horizontal lines.
+   Add class="scanlines" to body to enable.
+   ========================================================= */
+.scanlines::after{
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,.1) 2px,
+    rgba(0,0,0,.1) 4px
+  );
+  z-index: 9998;
+  opacity: .3;
+}
+
+
+/* =========================================================
+   30) PROJECT PAGE
+   ---------------------------------------------------------
+   Layout for individual project detail pages.
+   Features hero image, metadata, content, and gallery.
+   ========================================================= */
+
+/* Full-width hero image with cinematic aspect ratio */
+.project-hero{
+  width: 100%;
+  aspect-ratio: 21/9;
+  background: var(--bg-alt);
+  overflow: hidden;
+  position: relative;
+}
+
+.project-hero img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Project header with title and metadata */
+.project-header{
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 3rem;
+}
+
+.project-title{
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  margin-bottom: .5rem;
+}
+
+/* Metadata list (category, year, role) */
+.project-meta{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.project-meta dt{
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  font-size: .75rem;
+  letter-spacing: .05em;
+  margin-bottom: .25rem;
+}
+
+.project-meta dd{
+  margin: 0;
+}
+
+/* Content area with max-width for readability */
+.project-content{
+  max-width: 720px;
+}
+
+.project-content p{
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+/* Image gallery grid */
+.project-gallery{
+  display: grid;
+  gap: 1rem;
+  margin: 3rem 0;
+}
+
+.project-gallery img{
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* Back navigation link */
+.back-link{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .875rem;
+  margin-bottom: 2rem;
+  transition: color var(--t-fast) ease;
+}
+
+.back-link:hover{
+  color: var(--neon-cyan);
+}
+
+
+/* =========================================================
+   31) RESPONSIVE ADJUSTMENTS FOR PORTFOLIO
+   ---------------------------------------------------------
+   Mobile-specific overrides for portfolio components.
+   ========================================================= */
+@media (max-width: 768px){
+  .hero{
+    min-height: 50vh;
+    padding: 3rem 1rem;
+  }
+
+  .project-card{
+    width: 280px;
+  }
+
+  .section-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .project-hero{
+    aspect-ratio: 16/9;
+  }
+
+  .project-meta{
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px){
+  .project-card{
+    width: 260px;
+  }
+
+  .slider-track{
+    gap: 1rem;
+  }
+}
+
+
+/* =========================================================
+   END OF STYLESHEET
    ========================================================= */

@@ -1,29 +1,38 @@
 <!doctype html>
+<!--
+  ============================================================
+  feelsIncubator - Portfolio Case Study
+  ============================================================
+  Author:   Valdez Campos (dez@mediabrilliance.io)
+  Studio:   mediaBrilliance designxtudio
+  Date:     2026-01-17
+  Version:  1.0
+  ============================================================
+-->
 <html lang="en">
   <head>
     <!-- =====================================================
-         project: site name 
-         page: page title
+         feelsIncubator - portfolio
          ===================================================== -->
 
     <!-- core meta -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>page title</title>
-    <meta name="description" content="page description" />
-    <link rel="canonical" href="https://example.com/" />
+    <title>feelsIncubator</title>
+    <meta name="description" content="Design & art portfolio" />
+    <link rel="canonical" href="https://feelsincubator.com/" />
 
     <!-- social / previews -->
-    <meta property="og:title" content="site name" />
-    <meta property="og:description" content="site description" />
+    <meta property="og:title" content="feelsIncubator" />
+    <meta property="og:description" content="Design & art portfolio" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://feelsincubator.com/" />
     <meta property="og:image" content="/og.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="site name" />
-    <meta name="twitter:description" content="site description" />
+    <meta name="twitter:title" content="feelsIncubator" />
+    <meta name="twitter:description" content="Design & art portfolio" />
     <meta name="twitter:image" content="/og.png" />
 
     <!-- icons -->
@@ -34,16 +43,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
     <!-- styles -->
     <link rel="stylesheet" href="/style.css" />
 
+    <style>
+      body {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+      }
+    </style>
+
     <!-- scripts -->
     <script src="/js/page-transition.js" defer></script>
     <script src="/js/utils.js" defer></script>
+    <script src="/js/slider.js" defer></script>
   </head>
 
   <body>
@@ -67,20 +83,22 @@
               <span></span>
             </button>
             <div class="pages">
-              <!-- nav links -->
+              <a href="/" class="nav-link is-active">Work</a>
+              <a href="/about.html" class="nav-link">About</a>
             </div>
           </div>
 
           <!-- center -->
-          <div class="header-title">
-            <a href="/" aria-label="home">
-              site name
-            </a>
+          <div class="header-logo">
+            <a href="index.html"
+              class="header-logo"
+              aria-label="feels incubator home"></a>
           </div>
 
           <!-- right -->
           <div class="socials">
-            <!-- social links -->
+            <a href="#" class="nav-link" aria-label="Twitter">X</a>
+            <a href="#" class="nav-link" aria-label="Instagram">IG</a>
           </div>
         </nav>
       </div>
@@ -88,21 +106,138 @@
 
     <!-- mobile menu -->
     <div class="mobile-menu" aria-label="mobile navigation">
-      <!-- mobile nav links -->
+      <a href="/" class="nav-link is-active">Work</a>
+      <a href="/about.html" class="nav-link">About</a>
     </div>
 
     <!-- =====================================================
          main
          ===================================================== -->
-    <main id="main_container" class="container" role="main">
-      <!-- page content -->
+    <main id="main_container" role="main">
+
+      <!-- hero -->
+      <section class="hero">
+        <img
+          src="/images/feelsIncubator_logo.svg"
+          alt="feels incubator logo"
+          class="site-logo"
+          loading="eager"
+          decoding="async">
+
+        <p class="hero-subtitle">Design / Art / Vision</p>
+        <p class="hero-tagline">
+          Exploring the intersection of digital design and underground aesthetics.
+        </p>
+      </section>
+
+      <!-- portfolio slider -->
+      <section class="portfolio-section">
+        <div class="section-header">
+          <h2 class="section-title">Selected Work</h2>
+          <div class="slider-nav">
+            <button class="slider-btn" data-slider="prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button class="slider-btn" data-slider="next" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="slider-container">
+          <div class="slider-track">
+            <!-- project 1 -->
+            <article class="project-card">
+              <a href="/projects/neon-dreams.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/neon1/700/438" alt="Neon Dreams project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">Brand Identity</span>
+                  <h3 class="project-card-title">Neon Dreams</h3>
+                </div>
+              </a>
+            </article>
+
+            <!-- project 2 -->
+            <article class="project-card">
+              <a href="/projects/void-protocol.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/void2/700/438" alt="Void Protocol project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">UI/UX</span>
+                  <h3 class="project-card-title">Void Protocol</h3>
+                </div>
+              </a>
+            </article>
+
+            <!-- project 3 -->
+            <article class="project-card">
+              <a href="/projects/synth-wave.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/synth3/700/438" alt="Synth Wave project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">Illustration</span>
+                  <h3 class="project-card-title">Synth Wave</h3>
+                </div>
+              </a>
+            </article>
+
+            <!-- project 4 -->
+            <article class="project-card">
+              <a href="/projects/ghost-signal.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/ghost4/700/438" alt="Ghost Signal project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">Motion</span>
+                  <h3 class="project-card-title">Ghost Signal</h3>
+                </div>
+              </a>
+            </article>
+
+            <!-- project 5 -->
+            <article class="project-card">
+              <a href="/projects/cyber-flora.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/cyber5/700/438" alt="Cyber Flora project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">Art Direction</span>
+                  <h3 class="project-card-title">Cyber Flora</h3>
+                </div>
+              </a>
+            </article>
+
+            <!-- project 6 -->
+            <article class="project-card">
+              <a href="/projects/data-shrine.html">
+                <div class="project-card-image">
+                  <img src="https://picsum.photos/seed/data6/700/438" alt="Data Shrine project" loading="lazy" />
+                </div>
+                <div class="project-card-content">
+                  <span class="project-card-category">Web Design</span>
+                  <h3 class="project-card-title">Data Shrine</h3>
+                </div>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <!-- =====================================================
          footer
          ===================================================== -->
     <footer class="footer" role="contentinfo">
-      <p>© year site name</p>
+      <p>&copy; 2025 feelsIncubator</p>
     </footer>
   </body>
 </html>

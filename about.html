@@ -1,0 +1,472 @@
+<!--
+  ============================================================
+  feelsIncubator - Portfolio Case Study
+  ============================================================
+  Author:   Valdez Campos (dez@mediabrilliance.io)
+  Studio:   mediaBrilliance designxtudio
+  Date:     2026-01-17
+  Version:  1.0
+  ============================================================
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =====================================================
+         feelsIncubator - about
+         ===================================================== -->
+
+    <!-- core meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>About - feelsIncubator</title>
+    <meta name="description" content="About the feelsIncubator portfolio case study" />
+    <link rel="canonical" href="https://feelsincubator.com/about.html" />
+
+    <!-- social / previews -->
+    <meta property="og:title" content="About - feelsIncubator" />
+    <meta property="og:description" content="About the feelsIncubator portfolio case study" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://feelsincubator.com/about.html" />
+    <meta property="og:image" content="/og.png" />
+
+    <!-- icons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <style>
+      body {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+      }
+
+      .about-hero {
+        padding: 6rem 1rem 4rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .about-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 30% 20%, rgba(0,240,255,.06) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(255,0,170,.06) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .about-title {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .about-intro {
+        max-width: 600px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.125rem;
+        line-height: 1.7;
+      }
+
+      .about-content {
+        padding: 4rem 0;
+      }
+
+      .about-section {
+        margin-bottom: 4rem;
+      }
+
+      .about-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .section-label {
+        font-size: .75rem;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--neon-cyan);
+        margin-bottom: 1rem;
+      }
+
+      .about-section h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-section p {
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.75;
+        margin-bottom: 1rem;
+        max-width: 680px;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .tech-card {
+        background: var(--bg-alt);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+        transition: border-color var(--t-base) ease;
+      }
+
+      .tech-card:hover {
+        border-color: rgba(255,255,255,.2);
+      }
+
+      .tech-card h3 {
+        font-size: .875rem;
+        font-weight: 600;
+        color: var(--neon-cyan);
+        margin-bottom: .5rem;
+      }
+
+      .tech-card p {
+        font-size: .875rem;
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .process-list {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0 0;
+      }
+
+      .process-list li {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+
+      .process-list li:last-child {
+        border-bottom: none;
+      }
+
+      .process-number {
+        font-size: .875rem;
+        font-weight: 700;
+        color: var(--neon-magenta);
+        flex-shrink: 0;
+        width: 2rem;
+      }
+
+      .process-content h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: .25rem;
+      }
+
+      .process-content p {
+        font-size: .875rem;
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .ideas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .idea-card {
+        background: linear-gradient(135deg, rgba(0,240,255,.05) 0%, rgba(255,0,170,.05) 100%);
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+      }
+
+      .idea-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: .75rem;
+      }
+
+      .idea-card p {
+        font-size: .875rem;
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .credits {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,.1);
+      }
+
+      .credits p {
+        font-size: .875rem;
+        color: var(--muted);
+      }
+
+      .credits a {
+        color: var(--neon-cyan);
+      }
+    </style>
+
+    <!-- scripts -->
+    <script src="/js/page-transition.js" defer></script>
+    <script src="/js/utils.js" defer></script>
+  </head>
+
+  <body>
+    <!-- =====================================================
+         page transition + skip link
+         ===================================================== -->
+    <div id="page-transition" aria-hidden="true"></div>
+    <a class="skip-link" href="#main_container">skip to main content</a>
+
+    <!-- =====================================================
+         header
+         ===================================================== -->
+    <header class="site-header" role="banner">
+      <div class="header-grid">
+        <nav class="nav" aria-label="primary">
+          <!-- left: nav links (desktop) / toggle (mobile) -->
+          <div class="nav-left-section">
+            <button class="nav-toggle" aria-label="menu" aria-expanded="false">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div class="pages">
+              <a href="/" class="nav-link">Work</a>
+              <a href="/about.html" class="nav-link is-active">About</a>
+            </div>
+          </div>
+
+          <!-- center -->
+          <div class="header-title">
+            <a href="/" aria-label="home">
+              feelsIncubator
+            </a>
+          </div>
+
+          <!-- right -->
+          <div class="socials">
+            <a href="#" class="nav-link" aria-label="Twitter">X</a>
+            <a href="#" class="nav-link" aria-label="Instagram">IG</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- mobile menu -->
+    <div class="mobile-menu" aria-label="mobile navigation">
+      <a href="/" class="nav-link">Work</a>
+      <a href="/about.html" class="nav-link is-active">About</a>
+    </div>
+
+    <!-- =====================================================
+         main
+         ===================================================== -->
+    <main id="main_container" role="main">
+
+      <!-- about hero -->
+      <section class="about-hero">
+          <img
+          src="/images/about_that.svg"
+          alt="feels incubator logo"
+          class="site-logo"
+          loading="eager"
+          decoding="async">
+
+        <p class="about-intro">
+          feelsIncubator is a portfolio case study exploring cyberpunk aesthetics
+          and underground anime visual language through modern web technologies.
+        </p>
+      </section>
+
+      <!-- about content -->
+      <div class="container about-content">
+
+        <!-- overview -->
+        <section class="about-section">
+          <span class="section-label">Overview</span>
+          <h2>Portfolio Case Study</h2>
+          <p>
+            This project serves as both a functional portfolio template and a design
+            exploration. It demonstrates how cyberpunk and underground anime aesthetics
+            can be translated into a cohesive web experience without sacrificing
+            usability or performance.
+          </p>
+          <p>
+            The design language draws from neon-lit cityscapes, late-night anime
+            screenings, and the raw energy of underground digital culture. Every
+            element is crafted to evoke that feeling of discovering something hidden
+            in the depths of the internet.
+          </p>
+        </section>
+
+        <!-- tech stack -->
+        <section class="about-section">
+          <span class="section-label">Tech Stack</span>
+          <h2>Built With</h2>
+          <p>
+            A deliberately minimal tech stack focused on performance, maintainability,
+            and zero dependencies.
+          </p>
+
+          <div class="tech-grid">
+            <div class="tech-card">
+              <h3>HTML5</h3>
+              <p>Semantic markup with accessibility-first structure. ARIA labels, skip links, and proper heading hierarchy.</p>
+            </div>
+            <div class="tech-card">
+              <h3>CSS3</h3>
+              <p>Custom properties for theming, CSS Grid and Flexbox for layout, animations with reduced motion support.</p>
+            </div>
+            <div class="tech-card">
+              <h3>Vanilla JavaScript</h3>
+              <p>Zero dependencies. ES5 compatible for maximum browser support. Modular IIFE pattern.</p>
+            </div>
+            <div class="tech-card">
+              <h3>Space Grotesk</h3>
+              <p>Google Fonts. Geometric sans-serif with a technical, slightly futuristic character.</p>
+            </div>
+            <div class="tech-card">
+              <h3>CSS Custom Properties</h3>
+              <p>Design tokens for colors, spacing, timing, and effects. Single source of truth for theming.</p>
+            </div>
+            <div class="tech-card">
+              <h3>No Build Step</h3>
+              <p>Pure static files. No bundlers, no transpilers, no package managers required.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- process -->
+        <section class="about-section">
+          <span class="section-label">Process</span>
+          <h2>How It Was Made</h2>
+          <p>
+            The development followed a design-led approach, starting with mood and
+            aesthetic before moving into technical implementation.
+          </p>
+
+          <ol class="process-list">
+            <li>
+              <span class="process-number">01</span>
+              <div class="process-content">
+                <h3>Aesthetic Research</h3>
+                <p>Gathered references from cyberpunk anime, underground web culture, neon signage, and late-night urban photography. Defined the visual territory.</p>
+              </div>
+            </li>
+            <li>
+              <span class="process-number">02</span>
+              <div class="process-content">
+                <h3>Design System</h3>
+                <p>Established color palette (cyan, magenta, deep black), typography choices, spacing scale, and motion principles. Created CSS custom properties.</p>
+              </div>
+            </li>
+            <li>
+              <span class="process-number">03</span>
+              <div class="process-content">
+                <h3>Component Development</h3>
+                <p>Built reusable components: navigation, cards, buttons, sliders. Each component tested for responsiveness and accessibility.</p>
+              </div>
+            </li>
+            <li>
+              <span class="process-number">04</span>
+              <div class="process-content">
+                <h3>Page Assembly</h3>
+                <p>Composed homepage with hero and portfolio slider. Created project page template. Ensured consistent experience across all pages.</p>
+              </div>
+            </li>
+            <li>
+              <span class="process-number">05</span>
+              <div class="process-content">
+                <h3>Interaction Polish</h3>
+                <p>Added hover states with glow effects, smooth page transitions, drag-to-scroll slider, and keyboard navigation support.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <!-- ideas -->
+        <section class="about-section">
+          <span class="section-label">Concept</span>
+          <h2>Ideas Behind the Design</h2>
+
+          <div class="ideas-grid">
+            <div class="idea-card">
+              <h3>Neon Glow as Interaction Feedback</h3>
+              <p>Glow effects aren't just decorative. They serve as visual feedback for interactive elements, guiding users through the interface like neon signs in a dark city.</p>
+            </div>
+            <div class="idea-card">
+              <h3>Dark-First Design</h3>
+              <p>The dark background isn't a mode toggle, it's the identity. Black creates depth for colors to pop and establishes the underground atmosphere.</p>
+            </div>
+            <div class="idea-card">
+              <h3>Restraint in Chaos</h3>
+              <p>Cyberpunk can easily become overwhelming. This design uses the aesthetic sparingly through strategic glow effects and color accents.</p>
+            </div>
+            <div class="idea-card">
+              <h3>Performance as Feature</h3>
+              <p>No frameworks, no build tools. The site loads fast because there's nothing unnecessary. Minimalism in code mirrors the design philosophy.</p>
+            </div>
+            <div class="idea-card">
+              <h3>Accessible Underground</h3>
+              <p>Underground doesn't mean exclusive. Proper contrast ratios, keyboard navigation, screen reader support, and reduced motion respect.</p>
+            </div>
+            <div class="idea-card">
+              <h3>Typography as Architecture</h3>
+              <p>Space Grotesk's geometric forms echo circuit boards and technical drawings. Type sizing creates clear hierarchy without decoration.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- credits -->
+        <div class="credits">
+          <span class="section-label">Credits</span>
+          <p>
+            Designed and developed by <strong>Valdez Campos</strong><br />
+            <a href="mailto:dez@mediabrilliance.io">dez@mediabrilliance.io</a>
+          </p>
+          <p>
+            <strong>mediaBrilliance designxtudio</strong><br />
+            Version 1.0 &mdash; January 2026
+          </p>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- =====================================================
+         footer
+         ===================================================== -->
+    <footer class="footer" role="contentinfo">
+      <p>&copy; 2025 feelsIncubator</p>
+    </footer>
+  </body>
+</html>
